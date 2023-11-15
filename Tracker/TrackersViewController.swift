@@ -178,7 +178,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate{
     }
     
     @objc func datePickerValueChanged() {
-        let selectedDate = datePicker.date
+        let selectedDate = datePicker.date.removeTimeStamp!
         self.datePicker.date = selectedDate
         currentDate = selectedDate
         print(currentDate)
@@ -229,15 +229,18 @@ extension TrackersViewController: TrackerViewCellDelegate {
         guard let indexPath = trackersCollectionView.indexPath(for: cell) else { return }
         let id = visibleCategories[indexPath.section].trackers[indexPath.row].id
         var daysCount = completedTrackers.filter { $0.id == id }.count
-        if !completedTrackers.contains(where: { $0.id == id && $0.date == currentDate}) {
-            completedTrackers.insert(TrackerRecord(id: id, date: currentDate))
-            daysCount += 1
-            cell.configRecord(days: daysCount, isDone: true)
-        } else {
-            completedTrackers.remove(TrackerRecord(id: id, date: currentDate))
-            daysCount -= 1
-            cell.configRecord(days: daysCount, isDone: false)
+        if datePicker.date.timeIntervalSinceNow.sign == .minus {
+            if !completedTrackers.contains(where: { $0.id == id && $0.date == currentDate.removeTimeStamp!}) {
+                completedTrackers.insert(TrackerRecord(id: id, date: currentDate.removeTimeStamp!))
+                daysCount += 1
+                cell.configRecord(days: daysCount, isDone: true)
+            } else {
+                completedTrackers.remove(TrackerRecord(id: id, date: currentDate.removeTimeStamp!))
+                daysCount -= 1
+                cell.configRecord(days: daysCount, isDone: false)
+            }
         }
+        print("completed trackers \(completedTrackers)")
     }
 }
 
@@ -257,7 +260,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrackerViewCell else { return UICollectionViewCell() }
         let tracker = visibleCategories[indexPath.section].trackers[indexPath.row]
         cell.configureCellData(tracker: tracker)
-        cell.configRecord(days: completedTrackers.filter{ $0.id == tracker.id}.count, isDone: completedTrackers.contains{$0.id == tracker.id && $0.date == currentDate})
+        cell.configRecord(days: completedTrackers.filter{ $0.id == tracker.id}.count, isDone: completedTrackers.contains{$0.id == tracker.id && $0.date == currentDate.removeTimeStamp!})
         cell.delegate = self
         cell.contentView.layer.cornerRadius = 16
         return cell
@@ -299,3 +302,12 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension Date {
+    public var removeTimeStamp : Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let stringDate = formatter.string(from: self)
+        let date = formatter.date(from: stringDate)!
+        return date
+   }
+}

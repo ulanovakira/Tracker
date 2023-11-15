@@ -57,6 +57,7 @@ final class NewTrackerViewController: UIViewController{
         label.textColor = .black
         label.font = UIFont(name: "SFProText-Regular", size: 17)
         label.layer.masksToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -197,7 +198,8 @@ final class NewTrackerViewController: UIViewController{
         if trackerType == "habbit" {
             scheduleStackView.addArrangedSubview(scheduleLabel)
             scheduleStackView.addArrangedSubview(getScheduleButton)
-            
+            scheduleLabel.isUserInteractionEnabled = true
+            scheduleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(getScheduleButtonTapped)))
             stackView.addArrangedSubview(separatorView)
             stackView.addArrangedSubview(scheduleStackView)
             
@@ -231,6 +233,8 @@ final class NewTrackerViewController: UIViewController{
             
             categoryLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
             scheduleLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
+            scheduleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -45),
+            
             getCategoryButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -24),
 
             separatorView.heightAnchor.constraint(equalToConstant: 0.5),
