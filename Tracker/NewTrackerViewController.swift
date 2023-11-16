@@ -18,7 +18,7 @@ final class NewTrackerViewController: UIViewController{
     
     weak var delegate: NewTrackerViewControllerDelegate?
     weak var scheduleDelegate: ScheduleViewControllerDelegate?
-    
+    private var didSelectSchedule = false
     private var category: String = ["Категория 1", "Категория 2", "Категория 3", "Категория 4"].randomElement()!
     private var emoji: String = [ "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭"].randomElement()!
     private var color: UIColor = [UIColor(named: "RedSelection"), UIColor(named: "OrangeSelection"), UIColor(named: "BlueSelection"), UIColor(named: "VioletSelection"), UIColor(named: "GreenSelection"), UIColor(named: "PinkSelection")].randomElement()!!
@@ -81,6 +81,8 @@ final class NewTrackerViewController: UIViewController{
         textView.backgroundColor = UIColor(named: "YPLightGray")
         textView.font = UIFont(name: "SFProText-Regular", size: 17)
         textView.layer.cornerRadius = 16
+        textView.isUserInteractionEnabled = true
+        textView.returnKeyType = UIReturnKeyType.done
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -258,6 +260,15 @@ final class NewTrackerViewController: UIViewController{
         ])
     }
     
+    private func didDoneAllStaff() {
+        if !trackerNameTextField.text!.isEmpty {
+            if (trackerType == "habbit" && didSelectSchedule == true) || trackerType != "habbit" {
+                createButton.isEnabled = true
+                createButton.backgroundColor = UIColor(named: "YPBlack")
+            }
+        }
+    }
+    
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
@@ -265,6 +276,9 @@ final class NewTrackerViewController: UIViewController{
     @objc func createButtonTapped() {
         let id = UUID()
         guard let name = trackerNameTextField.text else { return }
+        if trackerType != "habbit" {
+            schedule = [Weekday.Monday, Weekday.Tuesday, Weekday.Wednesday, Weekday.Thursday, Weekday.Friday, Weekday.Saturday, Weekday.Sunday]
+        }
         let tracker = Tracker(id: id, name: name, color: color, emoji: emoji, schedule: schedule)
         print(tracker)
         
@@ -285,31 +299,43 @@ final class NewTrackerViewController: UIViewController{
 extension NewTrackerViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         placeholderLabel.isHidden = !textField.text!.isEmpty
+        didDoneAllStaff()
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         placeholderLabel.isHidden = true
-        createButton.isEnabled = true
-        createButton.backgroundColor = UIColor(named: "YPBlack")
+        didDoneAllStaff()
+       
     }
     func textFieldDidChangeSelection(_ textField: UITextField) {
         placeholderLabel.isHidden = !textField.text!.isEmpty
+        didDoneAllStaff()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        didDoneAllStaff()
+        return false
     }
 }
 
 extension NewTrackerViewController: ScheduleViewControllerDelegate {
     func didSelectSchedule(days: [Weekday]) {
-        self.schedule = days
-        var daysShort: [String] = []
-        var daysString = ""
-        for day in days {
-            daysShort.append(day.shortName)
+        if !days.isEmpty {
+            self.schedule = days
+            var daysShort: [String] = []
+            var daysString = ""
+            for day in days {
+                daysShort.append(day.shortName)
+            }
+            daysString = daysShort.joined(separator: ", ")
+            print("days \(days)")
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Расписание \n\(daysString)")
+            attributedString.setColor(color: UIColor(named: "YPGray")!, forText: daysString)
+            
+            scheduleLabel.attributedText = attributedString
+            didSelectSchedule = true
+            print("didSelectSchedule \(didSelectSchedule)")
+            didDoneAllStaff()
         }
-        daysString = daysShort.joined(separator: ", ")
-        print("days \(days)")
-        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Расписание \n\(daysString)")
-        attributedString.setColor(color: UIColor(named: "YPGray")!, forText: daysString)
-        
-        scheduleLabel.attributedText = attributedString
     }
 }
 extension NSMutableAttributedString {
