@@ -10,10 +10,10 @@ import Foundation
 
 class TrackersViewController: UIViewController, UINavigationControllerDelegate{
     //mock trackers
-    var categories: [TrackerCategory] = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "BlueSelection")!, emoji: "❤️", schedule: [Weekday.Wednesday])]),
-                                         TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "RedSelection")!, emoji: "🙈", schedule: [Weekday.Thursday])]),
-                                         TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "VioletSelection")!, emoji: "🤪", schedule: [Weekday.Wednesday])]),
-                                         TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "PinkSelection")!, emoji: "🥶", schedule: [Weekday.Saturday])])]
+    var categories: [TrackerCategory] = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "Selection1")!, emoji: "❤️", schedule: [Weekday.Wednesday])]),
+                                         TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "Selection2")!, emoji: "🙈", schedule: [Weekday.Thursday])]),
+                                         TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "Selection17")!, emoji: "🤪", schedule: [Weekday.Wednesday])]),
+                                         TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "Selection6")!, emoji: "🥶", schedule: [Weekday.Saturday])])]
     var completedTrackers: Set<TrackerRecord> = []
     var visibleCategories: [TrackerCategory] = []
                                                                 
