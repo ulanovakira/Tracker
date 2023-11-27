@@ -344,7 +344,7 @@ final class NewTrackerViewController: UIViewController{
         if trackerType != "habbit" {
             schedule = [Weekday.Monday, Weekday.Tuesday, Weekday.Wednesday, Weekday.Thursday, Weekday.Friday, Weekday.Saturday, Weekday.Sunday]
         }
-        let tracker = Tracker(id: id, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule)
+        let tracker = Tracker(id: id, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule, recordCount: 0)
         print(tracker)
 
         delegate?.didSaveTracker(tracker: tracker, category: category)

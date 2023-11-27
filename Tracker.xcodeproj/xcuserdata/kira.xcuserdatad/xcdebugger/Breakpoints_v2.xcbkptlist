@@ -3,4 +3,934 @@
    uuid = "4CA79192-52A4-415C-8F8F-82113556DB18"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/CoreData/TrackerCategoryStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "getCategoryCoreData(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939cbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939cbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939acc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939a29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939a29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939a29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a939972"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a9399f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "D1F7984C-BE1B-40D7-94C1-11185092015C - e23555e4a9399f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerCategoryStore.getCategoryCoreData(with: Swift.String) throws -&gt; Tracker.TrackerCategoryCoreData"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerCategoryStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/TrackersViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "didSaveTracker(tracker:category:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e33362"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "892">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - d43a30c25a065608"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Tracker.TrackerRecord) -&gt; Swift.Bool in Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "344">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e33362"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "4004">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - 987c51ecbea2e437"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Tracker.TrackerRecord) -&gt; Swift.Bool in Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "344">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e334f6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "273"
+                  endingLineNumber = "273"
+                  offsetFromSymbolStart = "3688">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - 688305058998b681"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "273"
+                  endingLineNumber = "273"
+                  offsetFromSymbolStart = "3640">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e33362"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e33343"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "262"
+                  endingLineNumber = "262"
+                  offsetFromSymbolStart = "396">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - d43a30c25a065629"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Tracker.TrackerRecord) -&gt; Swift.Bool in Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "262"
+                  endingLineNumber = "262"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e3332c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "396">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - d43a30c25a065646"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Tracker.TrackerRecord) -&gt; Swift.Bool in Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e3332c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "748">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - b63625bb96e3330d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "1080">
+               </Location>
+               <Location
+                  uuid = "16D48CDC-06CA-4BDB-992A-1EAA17672E1D - d43a30c25a065667"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Tracker.TrackerRecord) -&gt; Swift.Bool in Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "408">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CD427998-A239-4218-944E-8ABD6739FAF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/TrackerViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "plusButtonTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f74f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f74f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f72e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f701"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f72e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f72e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f701"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "CD427998-A239-4218-944E-8ABD6739FAF6 - e85432291dd1f701"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerViewCell.plusButtonTapped() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackerViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "372">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "437366CA-142C-46F9-8C04-C247BF555665"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/TrackersViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "didSaveTracker(tracker:category:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "437366CA-142C-46F9-8C04-C247BF555665 - b63625bb96e3332c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  uuid = "437366CA-142C-46F9-8C04-C247BF555665 - b63625bb96e3330d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  uuid = "437366CA-142C-46F9-8C04-C247BF555665 - b63625bb96e3330d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "1032">
+               </Location>
+               <Location
+                  uuid = "437366CA-142C-46F9-8C04-C247BF555665 - b63625bb96e333ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.plusButtonTapped(cell: Tracker.TrackerViewCell, tracker: Tracker.Tracker) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "265"
+                  endingLineNumber = "265"
+                  offsetFromSymbolStart = "1364">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "809520F6-D40E-4672-AB18-2501C56A3827"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/CoreData/TrackerRecordStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "addRecord(record:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "809520F6-D40E-4672-AB18-2501C56A3827 - b71045e8d6d3776d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  uuid = "809520F6-D40E-4672-AB18-2501C56A3827 - b71045e8d6d3774a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "809520F6-D40E-4672-AB18-2501C56A3827 - b71045e8d6d3755b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "368">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "23A0680D-85A6-4781-A4FD-84CFD9B8C83C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/CoreData/TrackerRecordStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "deleteRecord(record:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "23A0680D-85A6-4781-A4FD-84CFD9B8C83C - 35f69908b6bdd069"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.deleteRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "2628">
+               </Location>
+               <Location
+                  uuid = "23A0680D-85A6-4781-A4FD-84CFD9B8C83C - 35f69908b6bdd0af"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.deleteRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "2312">
+               </Location>
+               <Location
+                  uuid = "23A0680D-85A6-4781-A4FD-84CFD9B8C83C - 35f69908b6bdd29e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.deleteRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "2312">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C541A4A6-032A-43EF-A0CD-BBBE856E419D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/CoreData/TrackerRecordStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "addRecord(record:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C541A4A6-032A-43EF-A0CD-BBBE856E419D - b71045e8d6d374a7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "476">
+               </Location>
+               <Location
+                  uuid = "C541A4A6-032A-43EF-A0CD-BBBE856E419D - b71045e8d6d37465"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1976">
+               </Location>
+               <Location
+                  uuid = "C541A4A6-032A-43EF-A0CD-BBBE856E419D - b71045e8d6d37272"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackerRecordStore.addRecord(record: Tracker.TrackerRecord) throws -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/CoreData/TrackerRecordStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1976">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C6DF357-4155-45EE-9824-9BBC9BA7B21E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/TrackersViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "removeTimeStamp"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0C6DF357-4155-45EE-9824-9BBC9BA7B21E - bf02908b75b96ad4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateRecord(Swift.Set&lt;Tracker.TrackerRecord&gt;) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "356"
+                  endingLineNumber = "356"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "0C6DF357-4155-45EE-9824-9BBC9BA7B21E - bf02908b75b96af7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateRecord(Swift.Set&lt;Tracker.TrackerRecord&gt;) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "357"
+                  endingLineNumber = "357"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "0C6DF357-4155-45EE-9824-9BBC9BA7B21E - bf02908b75b96a7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateRecord(Swift.Set&lt;Tracker.TrackerRecord&gt;) -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "361"
+                  endingLineNumber = "361"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CEDCCAE9-9287-4EBF-831E-C0468CAD7464"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/TrackersViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
+            landmarkName = "removeTimeStamp"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "CEDCCAE9-9287-4EBF-831E-C0468CAD7464 - ad841d18f984d273"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateTrackers() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "349"
+                  endingLineNumber = "349"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "CEDCCAE9-9287-4EBF-831E-C0468CAD7464 - ad841d18f984d252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateTrackers() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "350"
+                  endingLineNumber = "350"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "CEDCCAE9-9287-4EBF-831E-C0468CAD7464 - ad841d18f984d32e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tracker.TrackersViewController.didUpdateTrackers() -&gt; ()"
+                  moduleName = "Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kira/swift_practice/Tracker/Tracker/TrackersViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "354"
+                  endingLineNumber = "354"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "511FB533-0DA3-4F5E-B77D-C5DB60EC95CF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tracker/NewTrackerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "createButtonTapped()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -8,16 +8,15 @@
 import UIKit
 import Foundation
 
-class TrackersViewController: UIViewController, UINavigationControllerDelegate{
-    //mock trackers
-    var categories: [TrackerCategory] = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "Selection1")!, emoji: "❤️", schedule: [Weekday.Wednesday])]),
-                                         TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "Selection2")!, emoji: "🙈", schedule: [Weekday.Thursday])]),
-                                         TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "Selection17")!, emoji: "🤪", schedule: [Weekday.Wednesday])]),
-                                         TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "Selection6")!, emoji: "🥶", schedule: [Weekday.Saturday])])]
+class TrackersViewController: UIViewController, UINavigationControllerDelegate {
+    var categories: [TrackerCategory] = []
     var completedTrackers: Set<TrackerRecord> = []
     var visibleCategories: [TrackerCategory] = []
                                                                 
     var currentDate = Date()
+    private var trackerStore = TrackerStore()
+    private var trackerCategoryStore = TrackerCategoryStore()
+    private var trackerRecordStore = TrackerRecordStore()
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
@@ -81,6 +80,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        trackerRecordStore.delegate = self
         showVisibleCategories()
         prepareView()
     }
@@ -94,7 +94,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate{
     }
     
     private func checkVisibleCategoriesEmpty() {
-        if !visibleCategories.isEmpty {
+        if trackerStore.numberOfTrackers != 0 {
             placeholderView.isHidden = true
             placeholderTextView.isHidden = true
         } else {
@@ -182,6 +182,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate{
         self.datePicker.date = selectedDate
         currentDate = selectedDate
         print(currentDate)
+        try? trackerStore.filterTrackers(date: selectedDate, searchString: "")
         showVisibleCategories()
     }
 }
@@ -189,22 +190,25 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate{
 extension TrackersViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         showVisibleCategories()
+        searchBar.setShowsCancelButton(true, animated: true)
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        showVisibleCategories()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        showVisibleCategories()
+    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.setShowsCancelButton(true, animated: true)
         if searchText.isEmpty {
             showVisibleCategories()
         } else {
-            visibleCategories = visibleCategories.filter { visibleCategory in
-                let filteredCategories = visibleCategory.trackers.filter { tracker in
-                    tracker.name.range(of: searchText, options: .caseInsensitive) != nil
-                }
-                return !filteredCategories.isEmpty
-            }.map { category in
-                TrackerCategory(head: category.head, trackers: category.trackers.filter {
-                    $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                })
-            }
+            try? trackerStore.filterTrackers(date: currentDate, searchString: searchText)
         }
         trackersCollectionView.reloadData()
     }
@@ -213,62 +217,58 @@ extension TrackersViewController: UISearchBarDelegate {
 extension TrackersViewController: AddTrackerViewControllerDelegate {
     func didSaveTracker(tracker: Tracker, category: String) {
         dismiss(animated: true)
-        if categories.contains(where: {$0.head == category}) {
-            guard let ind = categories.firstIndex(where: {$0.head == category}) else { return }
-            let updatedTrackers = categories[ind].trackers + [tracker]
-            categories[ind] = TrackerCategory(head: category, trackers: updatedTrackers)
-        } else {
-            categories.append(TrackerCategory(head: category, trackers: [tracker]))
-        }
         print("categories count \(categories.count)")
+        try? trackerStore.addTracker(tracker: tracker, category: category)
         showVisibleCategories()
     }
 }
 extension TrackersViewController: TrackerViewCellDelegate {
-    func plusButtonTapped(cell: TrackerViewCell) {
-        guard let indexPath = trackersCollectionView.indexPath(for: cell) else { return }
-        let id = visibleCategories[indexPath.section].trackers[indexPath.row].id
-        var daysCount = completedTrackers.filter { $0.id == id }.count
+    func plusButtonTapped(cell: TrackerViewCell, tracker: Tracker) {
+        let trackerRecord = TrackerRecord(id: tracker.id, date: currentDate.removeTimeStamp!)
         if datePicker.date.timeIntervalSinceNow.sign == .minus {
-            if !completedTrackers.contains(where: { $0.id == id && $0.date == currentDate.removeTimeStamp!}) {
-                completedTrackers.insert(TrackerRecord(id: id, date: currentDate.removeTimeStamp!))
-                daysCount += 1
-                cell.configRecord(days: daysCount, isDone: true)
+            if !completedTrackers.contains(where: { $0.id == tracker.id && $0.date == currentDate.removeTimeStamp!}) {
+                try? trackerRecordStore.addRecord(record: trackerRecord)
+                cell.addDays()
+                cell.configRecord(isDone: true)
+                
             } else {
-                completedTrackers.remove(TrackerRecord(id: id, date: currentDate.removeTimeStamp!))
-                daysCount -= 1
-                cell.configRecord(days: daysCount, isDone: false)
+                try? trackerRecordStore.deleteRecord(record: trackerRecord)
+                cell.removeDays()
+                cell.configRecord(isDone: false)
+                
             }
+            print("completed trackers \(completedTrackers)")
         }
-        print("completed trackers \(completedTrackers)")
     }
 }
 
 extension TrackersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("visible categories count \(visibleCategories[section].trackers.count)")
-        return visibleCategories[section].trackers.count
+        return trackerStore.numberOfItemsInSection(section)
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("count \(visibleCategories.count)")
         checkVisibleCategoriesEmpty()
-        return visibleCategories.count
+        return trackerStore.numberOfSections
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrackerViewCell else { return UICollectionViewCell() }
-        let tracker = visibleCategories[indexPath.section].trackers[indexPath.row]
-        cell.configureCellData(tracker: tracker)
-        cell.configRecord(days: completedTrackers.filter{ $0.id == tracker.id}.count, isDone: completedTrackers.contains{$0.id == tracker.id && $0.date == currentDate.removeTimeStamp!})
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrackerViewCell,
+              let tracker = trackerStore.getTracker(at: indexPath) else { return UICollectionViewCell() }
+        let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
+        let doneCount = try? trackerRecordStore.getDaysCountDone(tracker: tracker, date: currentDate.removeTimeStamp!)
+        print("done \(String(describing: done))")
+        cell.configureCellData(tracker: tracker, days: doneCount!)
+        cell.configRecord(isDone: done!)
         cell.delegate = self
         cell.contentView.layer.cornerRadius = 16
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? TrackerCategirySuplemetaryView else { return UICollectionReusableView() }
-        view.setCategory(visibleCategories[indexPath.section].head)
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? TrackerCategirySuplemetaryView,
+              let category = trackerStore.categoryNameInSection(indexPath.section) else { return UICollectionReusableView() }
+        view.setCategory(category)
         return view
     }
 }
@@ -310,4 +310,17 @@ extension Date {
         let date = formatter.date(from: stringDate)!
         return date
    }
+}
+extension TrackersViewController: TrackerStoreDelegate {
+    func didUpdateTrackers() {
+        checkVisibleCategoriesEmpty()
+        trackersCollectionView.reloadData()
+    }
+}
+
+extension TrackersViewController: TrackerRecordStoreDelegate {
+    func didUpdateRecord(_ records: Set<TrackerRecord>) {
+        completedTrackers = records
+        print("completedTrackers2 \(completedTrackers)")
+    }
 }

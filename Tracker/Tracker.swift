@@ -14,13 +14,15 @@ struct Tracker {
     let color: UIColor
     let emoji: String
     let schedule: [Weekday]?
+    let recordCount: Int
     
-    init(id: UUID, name: String, color: UIColor, emoji: String, schedule: [Weekday]) {
+    init(id: UUID, name: String, color: UIColor, emoji: String, schedule: [Weekday], recordCount: Int) {
         self.id = id
         self.name = name
         self.color = color
         self.emoji = emoji
         self.schedule = schedule
+        self.recordCount = recordCount
     }
 }
 enum Weekday: String, CaseIterable {
@@ -54,4 +56,26 @@ enum Weekday: String, CaseIterable {
         case .Sunday: return "Вс"
         }
     }
+    
+    static func weekdaysToString(weekdays: [Weekday]?) -> String? {
+        guard let weekdays else { return nil }
+        var string = ""
+        for day in weekdays {
+            string += String(day.numberValue)
+        }
+        return string
+    }
+    
+    static func stringToWeekdays(string: String?) -> [Weekday]? {
+        guard let string else { return nil }
+        var weekdays = [Weekday]()
+        for (index, _) in string.enumerated() {
+//            guard value == "1" else { continue }
+            let weekday = Self.allCases[index]
+            weekdays.append(weekday)
+        }
+        return weekdays
+    }
+    
 }
+
