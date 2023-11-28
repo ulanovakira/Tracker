@@ -9,12 +9,14 @@ import Foundation
 import UIKit
 
 protocol TrackerViewCellDelegate: AnyObject {
-    func plusButtonTapped(cell: TrackerViewCell)
+    func plusButtonTapped(cell: TrackerViewCell, tracker: Tracker)
 }
 
 class TrackerViewCell: UICollectionViewCell {
     
     weak var delegate: TrackerViewCellDelegate?
+    private var tracker: Tracker?
+    private var days: Int = 0
     
     private let cellView: UIView = {
         let cell = UIView()
@@ -101,7 +103,13 @@ class TrackerViewCell: UICollectionViewCell {
         ])
     }
     
-    func configRecord(days: Int, isDone: Bool) {
+    func addDays() {
+        days += 1
+    }
+    func removeDays() {
+        days -= 1
+    }
+    func configRecord(isDone: Bool) {
             configPlusButtonImage(isDone: isDone)
             configureTextLabel(days: days)
        }
@@ -117,7 +125,9 @@ class TrackerViewCell: UICollectionViewCell {
            }
        }
     
-    func configureCellData(tracker: Tracker) {
+    func configureCellData(tracker: Tracker, days: Int) {
+        self.tracker = tracker
+        self.days = days
         cellView.backgroundColor = tracker.color
         emojiLabel.text = tracker.emoji
         trackerDescription.text = tracker.name
@@ -136,6 +146,7 @@ class TrackerViewCell: UICollectionViewCell {
     }
     
     @objc func plusButtonTapped() {
-        delegate?.plusButtonTapped(cell: self)
+        guard let tracker else { return }
+        delegate?.plusButtonTapped(cell: self, tracker: tracker)
     }
 }
