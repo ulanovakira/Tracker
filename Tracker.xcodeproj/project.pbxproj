@@ -32,6 +32,8 @@
 		4FFDA7772B129A8E005FF2C7 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDA7762B129A8E005FF2C7 /* TrackerCategoryStore.swift */; };
 		4FFDA7792B129AA6005FF2C7 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDA7782B129AA6005FF2C7 /* TrackerRecordStore.swift */; };
 		4FFDA77D2B12A4B2005FF2C7 /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDA77C2B12A4B2005FF2C7 /* UIColorMarshalling.swift */; };
+		4FFDA7C42B18CD68005FF2C7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDA7C32B18CD68005FF2C7 /* OnboardingViewController.swift */; };
+		4FFDA7C72B18DCA0005FF2C7 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDA7C62B18DCA0005FF2C7 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		4FFDA7762B129A8E005FF2C7 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
 		4FFDA7782B129AA6005FF2C7 /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
 		4FFDA77C2B12A4B2005FF2C7 /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
+		4FFDA7C32B18CD68005FF2C7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		4FFDA7C62B18DCA0005FF2C7 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		4F26B0202AD878EB00E3F67F /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				4FFDA7C52B18DC84005FF2C7 /* Onboarding */,
 				4FFDA77B2B12A3CC005FF2C7 /* CoreData */,
 				4FF801F12AF8581C0036EF3B /* SFProText-Regular.ttf */,
 				4FF801EB2AF1B0310036EF3B /* SFProText-Medium.ttf */,
@@ -130,6 +135,15 @@
 				4FFDA77C2B12A4B2005FF2C7 /* UIColorMarshalling.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		4FFDA7C52B18DC84005FF2C7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4FFDA7C32B18CD68005FF2C7 /* OnboardingViewController.swift */,
+				4FFDA7C62B18DCA0005FF2C7 /* PageViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +230,9 @@
 				4FF801FA2B02CE770036EF3B /* TrackerCategorySuplemetaryView.swift in Sources */,
 				4F26B0362AEEE40900E3F67F /* Tracker.swift in Sources */,
 				4FFDA77D2B12A4B2005FF2C7 /* UIColorMarshalling.swift in Sources */,
+				4FFDA7C42B18CD68005FF2C7 /* OnboardingViewController.swift in Sources */,
 				4FF801EA2AF1ABED0036EF3B /* AddTrackerViewController.swift in Sources */,
+				4FFDA7C72B18DCA0005FF2C7 /* PageViewController.swift in Sources */,
 				4FF801FC2B06CC950036EF3B /* EmojiCollectionViewCell.swift in Sources */,
 				4FF801E82AEF03970036EF3B /* StatisticsViewController.swift in Sources */,
 				4FF801F62B0014390036EF3B /* TrackerViewCell.swift in Sources */,
