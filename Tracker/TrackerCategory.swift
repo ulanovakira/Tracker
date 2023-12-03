@@ -13,6 +13,5 @@ struct TrackerCategory {
     
     init(head: String, trackers: [Tracker]) {
         self.head = head
-        self.trackers = trackers
-    }
+        self.trackers = trackers    }
 }
