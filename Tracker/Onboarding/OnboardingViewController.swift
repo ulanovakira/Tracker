@@ -68,7 +68,7 @@ class OnboardingViewController: UIPageViewController {
     }
     
     @objc func buttonTapped() {
-        let trackersViewController = TrackersViewController()
+        let trackersViewController = TabBarViewController()
         trackersViewController.modalPresentationStyle = .fullScreen
         present(trackersViewController, animated: true)
     }
