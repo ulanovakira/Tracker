@@ -71,20 +71,19 @@ final class TrackerCategoryStore: NSObject {
         return head
     }
     func editCategory(category: String, newCategory: String) throws {
-        print("category \(category) ")
-        print("category \(category) ")
         let old = try? getCategoryCoreData(with: category)
-        print("oldCategory \(String(describing: old))")
-        old?.head = newCategory
-        print("newCategory \(String(describing: old))")
+        context.delete(old!)
         try context.save()
+        try? addCategory(category: newCategory)
     }
     func addCategory(category: String) throws {
-        let categoryCoreData = TrackerCategoryCoreData(context: context)
-        print("here ")
-        categoryCoreData.head = category
-        try? context.save()
-        print(categoryCoreData)
+        if category != "" {
+            let categoryCoreData = TrackerCategoryCoreData(context: context)
+            print("here ")
+            categoryCoreData.head = category
+            try? context.save()
+            print(categoryCoreData)
+        }
     }
     
     func deleteCategory(category: String) throws {
