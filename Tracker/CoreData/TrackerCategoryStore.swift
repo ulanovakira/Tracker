@@ -16,6 +16,10 @@ final class TrackerCategoryStore: NSObject {
     private let context: NSManagedObjectContext
     weak var delegate: TrackerCategoryStoreDelegate?
     
+    var categoriesCoreData: [TrackerCategoryCoreData] {
+        fetchResultsController.fetchedObjects ?? []
+    }
+    
     convenience override init() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         try! self.init(context: context)
@@ -23,7 +27,7 @@ final class TrackerCategoryStore: NSObject {
     init(context: NSManagedObjectContext) throws {
         self.context = context
         super.init()
-        try configCategories(with: context)
+//        try configCategories(with: context)
     }
     private lazy var fetchResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
         let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
@@ -41,6 +45,10 @@ final class TrackerCategoryStore: NSObject {
         return controller
     }()
     
+    var numberOfCategories: Int {
+        fetchResultsController.fetchedObjects?.count ?? 0
+    }
+    
     func getCategoryCoreData(with head: String) throws -> TrackerCategoryCoreData {
         let request = fetchResultsController.fetchRequest
         request.predicate = NSPredicate(format: "%K == %@",
@@ -55,20 +63,48 @@ final class TrackerCategoryStore: NSObject {
        }
     }
     
-    func configCategories(with context: NSManagedObjectContext) throws{
-//        let request = fetchResultsController.fetchRequest
-//        let fetch = try! context.fetch(request)
-        let _ = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "Selection1")!, emoji: "❤️", schedule: [Weekday.Wednesday], recordCount: 0)]),
-                 TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "Selection2")!, emoji: "🙈", schedule: [Weekday.Thursday], recordCount: 0)]),
-                 TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "Selection17")!, emoji: "🤪", schedule: [Weekday.Wednesday], recordCount: 0)]),
-                 TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "Selection6")!, emoji: "🥶", schedule: [Weekday.Saturday], recordCount: 0)])
-        ].map { category in
-            let categoryCoreData = TrackerCategoryCoreData(context: context)
-            categoryCoreData.head = category.head
-            return categoryCoreData
+    func getCategoryNameFromCoreData(coreData: TrackerCategoryCoreData) throws -> String {
+        guard let head = coreData.head  else {
+            throw StoreError.decodingErrorInvalidTracker
         }
+        
+        return head
+    }
+    func editCategory(category: String, newCategory: String) throws {
+        print("category \(category) ")
+        print("category \(category) ")
+        let old = try? getCategoryCoreData(with: category)
+        print("oldCategory \(String(describing: old))")
+        old?.head = newCategory
+        print("newCategory \(String(describing: old))")
         try context.save()
     }
+    func addCategory(category: String) throws {
+        let categoryCoreData = TrackerCategoryCoreData(context: context)
+        print("here ")
+        categoryCoreData.head = category
+        try? context.save()
+        print(categoryCoreData)
+    }
+    
+    func deleteCategory(category: String) throws {
+        let category = try? getCategoryCoreData(with: category)
+        context.delete(category!)
+        try context.save()
+    }
+    
+//    func configCategories(with context: NSManagedObjectContext) throws {
+//        let _ = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "Selection1")!, emoji: "❤️", schedule: [Weekday.Wednesday], recordCount: 0)]),
+//                 TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "Selection2")!, emoji: "🙈", schedule: [Weekday.Thursday], recordCount: 0)]),
+//                 TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "Selection17")!, emoji: "🤪", schedule: [Weekday.Wednesday], recordCount: 0)]),
+//                 TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "Selection6")!, emoji: "🥶", schedule: [Weekday.Saturday], recordCount: 0)])
+//        ].map { category in
+//            let categoryCoreData = TrackerCategoryCoreData(context: context)
+//            categoryCoreData.head = category.head
+//            return categoryCoreData
+//        }
+//        try context.save()
+//    }
 }
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

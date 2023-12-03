@@ -17,9 +17,12 @@ final class NewTrackerViewController: UIViewController{
     var trackerType: String = ""
     
     weak var delegate: NewTrackerViewControllerDelegate?
-    weak var scheduleDelegate: ScheduleViewControllerDelegate?
+//    weak var scheduleDelegate: ScheduleViewControllerDelegate?
+    private let categoriesViewModel = CategoriesViewModel()
     private var didSelectSchedule = false
-    private var category: String = ["Категория 1", "Категория 2", "Категория 3", "Категория 4"].randomElement()!
+    private var didSelectCategory = false
+//    private var category: String = ["Категория 1", "Категория 2", "Категория 3", "Категория 4"].randomElement()!
+    private var category: String = ""
     private var emojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
     private var colors = [UIColor(named: "Selection1"), UIColor(named: "Selection2"), UIColor(named: "Selection3"), UIColor(named: "Selection4"), UIColor(named: "Selection5"), UIColor(named: "Selection6"), UIColor(named: "Selection7"), UIColor(named: "Selection8"), UIColor(named: "Selection9"), UIColor(named: "Selection10"), UIColor(named: "Selection11"), UIColor(named: "Selection12"), UIColor(named: "Selection13"), UIColor(named: "Selection14"), UIColor(named: "Selection15"), UIColor(named: "Selection16"), UIColor(named: "Selection17"), UIColor(named: "Selection18")]
     private var schedule: [Weekday] = []
@@ -47,6 +50,8 @@ final class NewTrackerViewController: UIViewController{
         label.numberOfLines = 2
         label.textColor = .black
         label.font = UIFont(name: "SFProText-Regular", size: 17)
+        label.layer.masksToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         label.layer.masksToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -102,7 +107,7 @@ final class NewTrackerViewController: UIViewController{
         let button = UIButton()
         button.setImage(UIImage(named: "getButton"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(getCategoryButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(getCategoryButtonTapped), for: .allTouchEvents)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -238,9 +243,9 @@ final class NewTrackerViewController: UIViewController{
         stackView.addArrangedSubview(categoryStackView)
         
         
-        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Категория \n\(category)")
-        attributedString.setColor(color: UIColor(named: "YPGray")!, forText: category)
-        categoryLabel.attributedText = attributedString
+        
+        categoryLabel.isUserInteractionEnabled = true
+        categoryLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(getCategoryButtonTapped)))
         
         print(trackerType)
         
@@ -286,16 +291,17 @@ final class NewTrackerViewController: UIViewController{
             categoryStackView.heightAnchor.constraint(equalToConstant: 75),
             
             categoryLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
+            categoryLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -45),
             scheduleLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
             scheduleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -45),
             
             getCategoryButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -24),
+            getScheduleButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -24),
 
             separatorView.heightAnchor.constraint(equalToConstant: 0.5),
             separatorView.widthAnchor.constraint(equalTo: stackView.widthAnchor, constant: -32),
             separatorView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
             
-            getScheduleButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -24),
             
             emojiCollectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 32),
             emojiCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -325,10 +331,12 @@ final class NewTrackerViewController: UIViewController{
     
     private func didDoneAllStaff() {
         if !trackerNameTextField.text!.isEmpty {
-            if (trackerType == "habbit" && didSelectSchedule == true) || trackerType != "habbit" {
-                if selectedColor != nil && !selectedEmoji!.isEmpty {
-                    createButton.isEnabled = true
-                    createButton.backgroundColor = UIColor(named: "YPBlack")
+            if didSelectCategory == true {
+                if (trackerType == "habbit" && didSelectSchedule == true) || trackerType != "habbit" {
+                    if selectedColor != nil && !selectedEmoji!.isEmpty {
+                        createButton.isEnabled = true
+                        createButton.backgroundColor = UIColor(named: "YPBlack")
+                    }
                 }
             }
         }
@@ -351,6 +359,10 @@ final class NewTrackerViewController: UIViewController{
     }
     
     @objc func getCategoryButtonTapped() {
+        print("category button tapped")
+        let categoriesViewController = CategoriesViewController()
+        categoriesViewController.delegate = self
+        present(categoriesViewController, animated: true)
     }
     
     @objc func getScheduleButtonTapped() {
@@ -401,6 +413,17 @@ extension NewTrackerViewController: ScheduleViewControllerDelegate {
             print("didSelectSchedule \(didSelectSchedule)")
             didDoneAllStaff()
         }
+    }
+}
+
+extension NewTrackerViewController: CategoriesViewControllerDelegate {
+    func didSelectCategory(category: String) {
+            self.category = category
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Категория \n\(category)")
+            attributedString.setColor(color: UIColor(named: "YPGray")!, forText: category)
+            categoryLabel.attributedText = attributedString
+            didSelectCategory = true
+            didDoneAllStaff()
     }
 }
 extension NSMutableAttributedString {
