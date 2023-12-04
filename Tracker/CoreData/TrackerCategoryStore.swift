@@ -63,6 +63,11 @@ final class TrackerCategoryStore: NSObject {
        }
     }
     
+    func getTrackerCategory(tracker: TrackerCoreData) throws -> String {
+        guard let category = tracker.category?.head else { return "" }
+        return category
+    }
+    
     func getCategoryNameFromCoreData(coreData: TrackerCategoryCoreData) throws -> String {
         guard let head = coreData.head  else {
             throw StoreError.decodingErrorInvalidTracker
@@ -91,19 +96,6 @@ final class TrackerCategoryStore: NSObject {
         context.delete(category!)
         try context.save()
     }
-    
-//    func configCategories(with context: NSManagedObjectContext) throws {
-//        let _ = [TrackerCategory(head: "Категория 1", trackers: [Tracker(id: UUID(), name: "Первое дело", color: UIColor(named: "Selection1")!, emoji: "❤️", schedule: [Weekday.Wednesday], recordCount: 0)]),
-//                 TrackerCategory(head: "Категория 2", trackers: [Tracker(id: UUID(), name: "Второе дело", color: UIColor(named: "Selection2")!, emoji: "🙈", schedule: [Weekday.Thursday], recordCount: 0)]),
-//                 TrackerCategory(head: "Категория 3", trackers: [Tracker(id: UUID(), name: "Третье дело", color: UIColor(named: "Selection17")!, emoji: "🤪", schedule: [Weekday.Wednesday], recordCount: 0)]),
-//                 TrackerCategory(head: "Категория 4", trackers: [Tracker(id: UUID(), name: "Четвертое дело", color: UIColor(named: "Selection6")!, emoji: "🥶", schedule: [Weekday.Saturday], recordCount: 0)])
-//        ].map { category in
-//            let categoryCoreData = TrackerCategoryCoreData(context: context)
-//            categoryCoreData.head = category.head
-//            return categoryCoreData
-//        }
-//        try context.save()
-//    }
 }
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

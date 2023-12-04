@@ -17,6 +17,8 @@ class TrackerViewCell: UICollectionViewCell {
     weak var delegate: TrackerViewCellDelegate?
     private var tracker: Tracker?
     private var days: Int = 0
+    let analyticService = AnalyticService()
+    private let colors = Colors()
     
     private let cellView: UIView = {
         let cell = UIView()
@@ -30,6 +32,14 @@ class TrackerViewCell: UICollectionViewCell {
         label.text = "❤️"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let pinImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "pinTracker")
+        image.isHidden = true
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
     }()
     
     private let daysCountLabel: UILabel = {
@@ -77,7 +87,8 @@ class TrackerViewCell: UICollectionViewCell {
         cellView.addSubview(trackerDescription)
         contentView.addSubview(daysCountLabel)
         contentView.addSubview(plusButton)
-        
+        cellView.addSubview(pinImage)
+        daysCountLabel.textColor = colors.trackersLabelColor
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor),
             cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -99,8 +110,19 @@ class TrackerViewCell: UICollectionViewCell {
             plusButton.widthAnchor.constraint(equalToConstant: 34),
             
             daysCountLabel.topAnchor.constraint(equalTo: cellView.bottomAnchor, constant: 16),
-            daysCountLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 12)
+            daysCountLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 12),
+            
+            pinImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -12),
+            pinImage.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 18)
         ])
+    }
+    
+    func pinTracker() {
+        pinImage.isHidden = false
+    }
+    
+    func unpinTracker() {
+        pinImage.isHidden = true
     }
     
     func addDays() {
@@ -137,16 +159,17 @@ class TrackerViewCell: UICollectionViewCell {
     private func configureTextLabel(days: Int) {
         switch days % 10 {
         case 1:
-            daysCountLabel.text = "\(days) день"
+            daysCountLabel.text = "\(days) \(NSLocalizedString("day.one", comment: ""))"
         case 2...4:
-            daysCountLabel.text = "\(days) дня"
+            daysCountLabel.text = "\(days) \(NSLocalizedString("day.singular", comment: ""))"
         default:
-            daysCountLabel.text = "\(days) дней"
+            daysCountLabel.text = "\(days) \(NSLocalizedString("day.plural", comment: ""))"
         }
     }
     
     @objc func plusButtonTapped() {
         guard let tracker else { return }
         delegate?.plusButtonTapped(cell: self, tracker: tracker)
+        analyticService.reportEvent(event: .click, screen: .main, item: .track)
     }
 }

@@ -5,7 +5,11 @@
   Created by Кира on 03.12.2023.
   
 */
-"Trackers" = "Трекеры"
-"What will we track?" = "Что будем отслеживать?"
-"Statictics" = "Статистика"
-"Filters" = "Фильтры"
+"trackers" = "Trackers";
+"emptyState.title" = "What will we track?";
+"statistics" = "Statistics";
+"filters" = "Filters";
+"search" = "Search";
+"day.one" = "day";
+"day.singular" = "day";
+"day.plural" = "days";

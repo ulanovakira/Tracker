@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import YandexMobileMetrica
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 //        clearAllCoreData()
+        guard let configuration = YMMYandexMetricaConfiguration(apiKey: "319cc644-7d71-4223-9f1d-2dfa8f8bb28d") else { 
+                return true
+            }
+                
+        YMMYandexMetrica.activate(with: configuration)
         return true
     }
 

@@ -145,6 +145,12 @@ final class TrackerStore: NSObject {
         guard let trackerCoreData = fetchResultsController.sections?[section].objects?.first as? TrackerCoreData else { return nil }
         return trackerCoreData.category?.head
     }
+    
+    func deleteTracker(tracker: Tracker) throws {
+        let tracker = try? getTrackerCoreData(with: tracker.id)
+        context.delete(tracker!)
+        try context.save()
+    }
 }
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {
