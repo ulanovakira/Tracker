@@ -26,6 +26,10 @@ final class TrackerStore: NSObject {
         self.context = context
         super.init()
     }
+    
+    var trackersCoreData: [TrackerCoreData] {
+        fetchResultsController.fetchedObjects ?? []
+    }
     func saveContext() {
         if context.hasChanges {
             do {
@@ -129,6 +133,14 @@ final class TrackerStore: NSObject {
         delegate?.didUpdateTrackers()
     }
     
+    func showDoneTrackers(trackers: [Tracker]) throws {
+        for tracker in trackers {
+            let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
+            context.delete(trackerCoreData!)
+        }
+        delegate?.didUpdateTrackers()
+    }
+    
     var numberOfTrackers: Int {
         fetchResultsController.fetchedObjects?.count ?? 0
     }
@@ -150,6 +162,7 @@ final class TrackerStore: NSObject {
         let tracker = try? getTrackerCoreData(with: tracker.id)
         context.delete(tracker!)
         try context.save()
+        delegate?.didUpdateTrackers()
     }
 }
 

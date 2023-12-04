@@ -201,6 +201,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate {
     
     @objc func filtersButtonTapped() {
         let filtersViewController = FiltersViewController()
+        filtersViewController.delegate = self
         present(filtersViewController, animated: true)
     }
     
@@ -360,7 +361,6 @@ extension TrackersViewController: UICollectionViewDelegate {
         }
         print("indexPaths \(indexPaths)")
         let indexPath = indexPaths[0]
-        let cell = collectionView.cellForItem(at: indexPath)
         guard let tracker = trackerStore.getTracker(at: indexPath) else { return nil }
         return UIContextMenuConfiguration(actionProvider: { actions in
             return UIMenu(children: [
@@ -434,6 +434,41 @@ extension TrackersViewController: TrackerRecordStoreDelegate {
     func didUpdateRecord(_ records: Set<TrackerRecord>) {
         completedTrackers = records
         print("completedTrackers2 \(completedTrackers)")
+    }
+}
+
+extension TrackersViewController: FiltersViewControllerDelegate {
+    func didSelectFilter(filter: String) {
+        if filter == "all" {
+            trackersCollectionView.reloadData()
+            showVisibleCategories()
+        } else if filter == "today" {
+            trackersCollectionView.reloadData()
+            showVisibleCategories()
+        } else {
+            var trackersDone: [Tracker] = []
+            var trackersNotDone: [Tracker] = []
+            for trackerCoreData in trackerStore.trackersCoreData {
+                guard let tracker = try? trackerStore.trackerFromCoreData(coreData: trackerCoreData) else { return }
+                let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
+                if done == true {
+                    trackersDone.append(tracker)
+                } else {
+                    trackersNotDone.append(tracker)
+                }
+            }
+            if filter == "done" {
+                print("trackersNotDone \(trackersNotDone)")
+                try? trackerStore.showDoneTrackers(trackers: trackersNotDone)
+                showVisibleCategories()
+                trackersCollectionView.reloadData()
+            } else if filter == "notdone" {
+                print("trackersDone \(trackersDone)")
+                try? trackerStore.showDoneTrackers(trackers: trackersDone)
+                showVisibleCategories()
+                trackersCollectionView.reloadData()
+            }
+        }
     }
 }
 
