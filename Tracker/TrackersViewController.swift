@@ -327,7 +327,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         let doneCount = try? trackerRecordStore.getDaysCountDone(tracker: tracker, date: currentDate.removeTimeStamp!)
 //        let isPinned = try? trackerStore.isTrackerPinned(tracker: tracker)
         print("done \(String(describing: done))")
-        cell.configureCellData(tracker: tracker, days: doneCount!)
+        cell.configureCellData(tracker: tracker, days: doneCount!, isPinned: false)
         cell.configRecord(isDone: done!)
 //        cell.pinTracker(isPinned: isPinned ?? false)
         cell.delegate = self
@@ -351,11 +351,11 @@ extension TrackersViewController: UICollectionViewDelegate {
         print("category \(String(describing: trackerCoreData.category?.head))")
         if isPinned == false {
             trackerStore.pinTracker(tracker: tracker)
-            trackerViewCell.pinTracker(isPinned: true)
+//            trackerViewCell.pinTracker(isPinned: true)
             print("tracker pinned")
         } else {
             trackerStore.unPinTracker(tracker: tracker)
-            trackerViewCell.pinTracker(isPinned: false)
+//            trackerViewCell.pinTracker(isPinned: false)
         }
         showVisibleCategories()
         trackersCollectionView.reloadData()

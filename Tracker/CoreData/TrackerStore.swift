@@ -117,7 +117,10 @@ final class TrackerStore: NSObject {
     }
     
     func getTracker(at indexPath: IndexPath) -> Tracker? {
+        print("indexPath \(indexPath)")
+        
         let trackerCoreData = fetchResultsController.object(at: indexPath)
+        print("indexPathend")
         do {
             let tracker = try trackerFromCoreData(coreData: trackerCoreData)
             return tracker
@@ -166,9 +169,9 @@ final class TrackerStore: NSObject {
                 )
             } else {
                 predicates.append(NSPredicate(
-                format: "%K == %@",
-                #keyPath(TrackerCoreData.recordCount),
-                "0"
+                format: "%K != %@",
+                #keyPath(TrackerCoreData.record.date),
+                date.removeTimeStamp! as NSDate
                 ))
                 print("lallal")
             }
@@ -219,7 +222,7 @@ final class TrackerStore: NSObject {
     
     func isTrackerPinned(tracker: Tracker) throws -> Bool {
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
-        return trackerCoreData?.pinned ?? false
+        return trackerCoreData!.pinned
     }
     
     var numberOfTrackers: Int {
@@ -236,6 +239,7 @@ final class TrackerStore: NSObject {
     }
     
     func categoryNameInSection(_ section: Int) -> String? {
+        print("section \(section)")
         guard let trackerCoreData = fetchResultsController.sections?[section].objects?.first as? TrackerCoreData else { return nil }
         print("trackerStore.numberOfSectionsName \(trackerCoreData.category?.head)")
         print("trackerStore.numberOfSectionsName \(trackerCoreData.category?.trackers?.count)")

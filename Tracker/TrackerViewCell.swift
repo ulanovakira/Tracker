@@ -147,13 +147,19 @@ class TrackerViewCell: UICollectionViewCell {
        }
    }
     
-    func configureCellData(tracker: Tracker, days: Int) {
+    func configureCellData(tracker: Tracker, days: Int, isPinned: Bool) {
         self.tracker = tracker
         self.days = days
         cellView.backgroundColor = tracker.color
         emojiLabel.text = tracker.emoji
         trackerDescription.text = tracker.name
         plusButton.backgroundColor = tracker.color
+        
+        if isPinned {
+            pinImage.isHidden = false
+        } else {
+            pinImage.isHidden = true
+        }
     }
     
     private func configureTextLabel(days: Int) {
