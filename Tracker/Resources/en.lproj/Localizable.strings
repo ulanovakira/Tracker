@@ -13,3 +13,8 @@
 "day.one" = "day";
 "day.singular" = "day";
 "day.plural" = "days";
+"pinned" = "Pinned";
+"pin" = "Pin";
+"unpin" = "Unpin";
+"delete" = "Delete";
+"edit" = "Edit";

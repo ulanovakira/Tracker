@@ -97,6 +97,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate, 
         view.backgroundColor = colors.backgroundColor
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
+        trackerViewCell.delegate = self
         showVisibleCategories()
         prepareView()
         try? trackerRecordStore.loadCompletedTrackers(date: currentDate)
@@ -351,11 +352,11 @@ extension TrackersViewController: UICollectionViewDelegate {
         print("category \(String(describing: trackerCoreData.category?.head))")
         if isPinned == false {
             trackerStore.pinTracker(tracker: tracker)
-//            trackerViewCell.pinTracker(isPinned: true)
+            trackerViewCell.pinTracker(isPinned: true)
             print("tracker pinned")
         } else {
             trackerStore.unPinTracker(tracker: tracker)
-//            trackerViewCell.pinTracker(isPinned: false)
+            trackerViewCell.pinTracker(isPinned: false)
         }
         showVisibleCategories()
         trackersCollectionView.reloadData()
@@ -409,9 +410,9 @@ extension TrackersViewController: UICollectionViewDelegate {
         var title: String = ""
         let isPinned = try? trackerStore.isTrackerPinned(tracker: tracker)
         if isPinned == true {
-            title = "Открепить"
+            title = NSLocalizedString("unpin", comment: "")
         } else {
-            title = "Закрепить"
+            title = NSLocalizedString("pin", comment: "")
         }
         
         return UIContextMenuConfiguration(actionProvider: { actions in
@@ -419,10 +420,10 @@ extension TrackersViewController: UICollectionViewDelegate {
                 UIAction(title: title) { [weak self ] _ in
                     self?.pinTracker(tracker: tracker, isPinned: isPinned!)
                 },
-                UIAction(title: "Редактировать") { [weak self] _ in
+                UIAction(title: NSLocalizedString("edit", comment: "")) { [weak self] _ in
                     self?.editTracker(tracker: tracker)
                 },
-                UIAction(title: "Удалить", attributes: .destructive) { [weak self] _ in
+                UIAction(title: NSLocalizedString("delete", comment: ""), attributes: .destructive) { [weak self] _ in
                     self?.deleteTracker(tracker: tracker)
                 }
             ])

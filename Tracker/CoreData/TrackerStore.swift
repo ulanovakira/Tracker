@@ -204,17 +204,23 @@ final class TrackerStore: NSObject {
         let categoryStore = TrackerCategoryStore()
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
         trackerCoreData?.defaultCategory = trackerCoreData?.category?.head
-//        let categoryCoreData = try? categoryStore.getCategoryCoreData(with: "Закрепленные")
+        let categoryCoreData = try? categoryStore.getCategoryCoreData(with: NSLocalizedString("pinned", comment: ""))
+        let categoryCoreDataOld = try? categoryStore.getCategoryCoreData(with: (trackerCoreData?.category?.head)!)
         trackerCoreData?.pinned = true
-        trackerCoreData?.category?.head = "Закрепленные"
+        trackerCoreData?.category? = categoryCoreData!
+//        categoryCoreDataOld?.removeFromTrackers(trackerCoreData!)
+        categoryCoreData?.trackers?.adding(tracker)
         try? context.save()
         print("pinned \(tracker)")
         delegate?.didUpdateTrackers()
     }
     func unPinTracker(tracker: Tracker) {
+        let categoryStore = TrackerCategoryStore()
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
+        let categoryCoreDataOld = try? categoryStore.getCategoryCoreData(with: (trackerCoreData?.defaultCategory)!)
         trackerCoreData?.pinned = false
-        trackerCoreData?.category?.head = trackerCoreData?.defaultCategory
+        trackerCoreData?.category = categoryCoreDataOld
+        categoryCoreDataOld?.trackers?.adding(tracker)
         try? context.save()
         print(tracker)
         delegate?.didUpdateTrackers()

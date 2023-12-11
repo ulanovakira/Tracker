@@ -28,7 +28,7 @@ final class TrackerCategoryStore: NSObject {
     init(context: NSManagedObjectContext) throws {
         self.context = context
         super.init()
-        try addCategory(category: "Закрепленные")
+        try addCategory(category: NSLocalizedString("pinned", comment: ""))
 //        try configCategories(with: context)
     }
     private lazy var fetchResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
