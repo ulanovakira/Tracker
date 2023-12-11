@@ -48,7 +48,9 @@ final class TrackerRecordStore: NSObject, NSFetchedResultsControllerDelegate {
         let trackerCoreData = try trackerStore.getTrackerCoreData(with: record.id)
         let trackerRecordCoreData = TrackerRecordCoreData(context: context)
         trackerRecordCoreData.recordId = record.id.uuidString
-        trackerRecordCoreData.date = record.date
+        trackerRecordCoreData.date = record.date.removeTimeStamp!
+        print("record.date \(record.date.timeIntervalSince1970)")
+        print("trackerRecordCoreData.date \(trackerRecordCoreData.date)")
         trackerRecordCoreData.trackers = trackerCoreData
         completedTrackers.insert(record)
         try context.save()
@@ -81,10 +83,14 @@ final class TrackerRecordStore: NSObject, NSFetchedResultsControllerDelegate {
                                         #keyPath(TrackerRecordCoreData.date),
                                         date as NSDate)
         do {
-            let tracker = try context.fetch(request)
-            print("tracker \(tracker)")
-            if !tracker.isEmpty {
-                return true
+            let trackerCoreData = try context.fetch(request)
+            print("trackerCoreData \(trackerCoreData)")
+            if !trackerCoreData.isEmpty {
+                if !trackerCoreData[0].recordId!.isEmpty {
+                    return true
+                } else {
+                    return false
+                }
             } else {
                 return false
             }
@@ -108,7 +114,8 @@ final class TrackerRecordStore: NSObject, NSFetchedResultsControllerDelegate {
        }
     }
     
-    private func makeRecord(from coreData: TrackerRecordCoreData) throws -> TrackerRecord {
+    
+    func makeRecord(from coreData: TrackerRecordCoreData) throws -> TrackerRecord {
             guard
                 let stringId = coreData.recordId,
                 let id = UUID(uuidString: stringId),

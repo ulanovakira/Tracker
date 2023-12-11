@@ -75,7 +75,6 @@ class StatisticsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        completedTrackersCount = try? trackerRecordStore.getCompletedTrackersCount()
         checkVisibleCategoriesEmpty()
     }
     
@@ -88,16 +87,6 @@ class StatisticsViewController: UIViewController {
         view.addSubview(trackersDoneLabel)
         stackView.addArrangedSubview(countLabel)
         stackView.addArrangedSubview(trackersDoneLabel)
-//        let gradient = CAGradientLayer()
-//        gradient.frame =  CGRect(origin: .zero, size: stackView.frame.size)
-//        gradient.colors = [UIColor.blue.cgColor, UIColor.red.cgColor]
-//        let shape = CAShapeLayer()
-//        shape.lineWidth = 2
-//        shape.path = UIBezierPath(rect: stackView.bounds).cgPath
-//        shape.strokeColor = UIColor.black.cgColor
-//        shape.fillColor = UIColor.clear.cgColor
-//        gradient.mask = shape
-//        stackView.layer.addSublayer(gradient)
         
         NSLayoutConstraint.activate([
             titleHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol NewTrackerViewControllerDelegate: AnyObject {
-    func didSaveTracker(tracker: Tracker, category: String)
+    func didSaveTracker(tracker: Tracker, category: String, actionType: String)
 }
 
 
@@ -21,6 +21,7 @@ final class NewTrackerViewController: UIViewController{
     private var didSelectSchedule = false
     private var didSelectCategory = false
     private var category: String = ""
+    private var currentID: String = ""
     private var emojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
     private var colors = [UIColor(named: "Selection1"), UIColor(named: "Selection2"), UIColor(named: "Selection3"), UIColor(named: "Selection4"), UIColor(named: "Selection5"), UIColor(named: "Selection6"), UIColor(named: "Selection7"), UIColor(named: "Selection8"), UIColor(named: "Selection9"), UIColor(named: "Selection10"), UIColor(named: "Selection11"), UIColor(named: "Selection12"), UIColor(named: "Selection13"), UIColor(named: "Selection14"), UIColor(named: "Selection15"), UIColor(named: "Selection16"), UIColor(named: "Selection17"), UIColor(named: "Selection18")]
     private var schedule: [Weekday] = []
@@ -370,13 +371,24 @@ final class NewTrackerViewController: UIViewController{
         }
     }
     
-    func editTracker(tracker: Tracker, category: String) {
+    func editTracker(tracker: Tracker, category: String, recordCount: Int) {
         placeholderLabel.isHidden = true
         trackerNameTextField.text = tracker.name
         emojiLabel.text = tracker.emoji
-        
+        currentID = tracker.id.uuidString
+        configureTextLabel(days: recordCount)
         didSelectSchedule(days: tracker.schedule!)
         didSelectCategory(category: category)
+    }
+    private func configureTextLabel(days: Int) {
+        switch days % 10 {
+        case 1:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.one", comment: ""))"
+        case 2...4:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.singular", comment: ""))"
+        default:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.plural", comment: ""))"
+        }
     }
     
     @objc func cancelButtonTapped() {
@@ -384,15 +396,20 @@ final class NewTrackerViewController: UIViewController{
     }
     
     @objc func createButtonTapped() {
-        let id = UUID()
+        let id: UUID?
+        if actionType == "edit" {
+            id = UUID(uuidString: currentID)
+        } else {
+            id = UUID()
+        }
         guard let name = trackerNameTextField.text else { return }
         if trackerType != "habbit" {
             schedule = [Weekday.Monday, Weekday.Tuesday, Weekday.Wednesday, Weekday.Thursday, Weekday.Friday, Weekday.Saturday, Weekday.Sunday]
         }
-        let tracker = Tracker(id: id, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule, recordCount: 0)
+        let tracker = Tracker(id: id!, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule, recordCount: 0)
         print(tracker)
 
-        delegate?.didSaveTracker(tracker: tracker, category: category)
+        delegate?.didSaveTracker(tracker: tracker, category: category, actionType: actionType)
     }
     
     @objc func getCategoryButtonTapped() {

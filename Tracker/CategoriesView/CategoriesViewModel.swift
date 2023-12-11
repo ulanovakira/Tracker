@@ -67,7 +67,7 @@ extension CategoriesViewModel: NewCategoryViewControllerDelegate {
 }
 
 extension CategoriesViewModel: TrackerCategoryStoreDelegate {
-    func didUpdateTrackers() {
+    func didUpdateCategories() {
         categories = getCategoriesFromCoreData()
     }
 }

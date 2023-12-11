@@ -9,11 +9,12 @@ import Foundation
 import UIKit
 
 protocol FiltersViewControllerDelegate: AnyObject {
-    func didSelectFilter(filter: String)
+    func didSelectFilter(filter: String, filterFull: String)
 }
 
 final class FiltersViewController: UIViewController {
     private let filters: [String] = ["Все трекеры", "Трекеры на сегодня", "Завершенные", "Не завершенные"]
+    var selectedFilter: String = ""
     weak var delegate: FiltersViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -58,18 +59,18 @@ final class FiltersViewController: UIViewController {
     }
     
     func selectFilter(index: IndexPath) {
-        var filter = ""
+        var filterShort = ""
         if filters[index.row] == "Все трекеры" {
-            filter = "all"
+            filterShort = "all"
         } else if filters[index.row] == "Трекеры на сегодня" {
-            filter = "today"
+            filterShort = "today"
         } else if filters[index.row] == "Завершенные" {
-            filter = "done"
+            filterShort = "done"
         } else if filters[index.row] == "Не завершенные" {
-            filter = "notdone"
+            filterShort = "notdone"
         }
             
-        delegate?.didSelectFilter(filter: filter)
+        delegate?.didSelectFilter(filter: filterShort, filterFull: filters[index.row])
     }
 }
 
@@ -79,7 +80,9 @@ extension FiltersViewController: UITableViewDataSource {
         cell.textLabel?.text = filters[indexPath.row]
         cell.textLabel?.font = UIFont(name: "SFProText-Regular", size: 17)
         cell.backgroundColor = .clear
-        
+        if selectedFilter == filters[indexPath.row] {
+            cell.accessoryType = .checkmark
+        }
         return cell
     }
     

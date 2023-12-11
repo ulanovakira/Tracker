@@ -37,7 +37,7 @@ class TrackerViewCell: UICollectionViewCell {
     private let pinImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "pinTracker")
-        image.isHidden = true
+//        image.isHidden = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -117,12 +117,12 @@ class TrackerViewCell: UICollectionViewCell {
         ])
     }
     
-    func pinTracker() {
-        pinImage.isHidden = false
-    }
-    
-    func unpinTracker() {
-        pinImage.isHidden = true
+    func pinTracker(isPinned: Bool) {
+        if isPinned {
+            pinImage.isHidden = false
+        } else {
+            pinImage.isHidden = true
+        }
     }
     
     func addDays() {
@@ -134,18 +134,18 @@ class TrackerViewCell: UICollectionViewCell {
     func configRecord(isDone: Bool) {
             configPlusButtonImage(isDone: isDone)
             configureTextLabel(days: days)
+   }
+   
+   private func configPlusButtonImage(isDone: Bool) {
+       if isDone {
+           plusButton.setImage(UIImage(named: "doneTracker"), for: .normal)
+           plusButton.alpha = 0.3
+           plusButton.tintColor = .white
+       } else {
+           plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
+           plusButton.layer.opacity = 1
        }
-       
-       private func configPlusButtonImage(isDone: Bool) {
-           if isDone {
-               plusButton.setImage(UIImage(named: "doneTracker"), for: .normal)
-               plusButton.alpha = 0.3
-               plusButton.tintColor = .white
-           } else {
-               plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
-               plusButton.layer.opacity = 1
-           }
-       }
+   }
     
     func configureCellData(tracker: Tracker, days: Int) {
         self.tracker = tracker

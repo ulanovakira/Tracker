@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol TrackerCategoryStoreDelegate: AnyObject {
-    func didUpdateTrackers()
+    func didUpdateCategories()
 }
 final class TrackerCategoryStore: NSObject {
     private let context: NSManagedObjectContext
@@ -19,6 +19,7 @@ final class TrackerCategoryStore: NSObject {
     var categoriesCoreData: [TrackerCategoryCoreData] {
         fetchResultsController.fetchedObjects ?? []
     }
+    var notEmptyCategories: [TrackerCategoryCoreData] = []
     
     convenience override init() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -27,6 +28,7 @@ final class TrackerCategoryStore: NSObject {
     init(context: NSManagedObjectContext) throws {
         self.context = context
         super.init()
+        try addCategory(category: "Закрепленные")
 //        try configCategories(with: context)
     }
     private lazy var fetchResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
@@ -44,12 +46,39 @@ final class TrackerCategoryStore: NSObject {
         try? controller.performFetch()
         return controller
     }()
-    
     var numberOfCategories: Int {
         fetchResultsController.fetchedObjects?.count ?? 0
     }
+    func getNumberOfCategoriesWithTrackers() -> Int {
+        var count: Int = 0
+        print("notEmptyCategories \(notEmptyCategories)")
+        print("fetchResultsController.fetchedObjects?.count \(String(describing: fetchResultsController.fetchedObjects?.count))")
+        if fetchResultsController.fetchedObjects?.count != 0 {
+            for i in 0..<(fetchResultsController.fetchedObjects?.count)! {
+                if fetchResultsController.fetchedObjects![i].trackers?.count != 0 {
+                    count += 1
+                    if !notEmptyCategories.contains(fetchResultsController.fetchedObjects![i]) {
+                        notEmptyCategories.append(fetchResultsController.fetchedObjects![i])
+                    }
+                }
+            }
+        }
+        return count
+    }
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        notEmptyCategories[section].trackers?.count ?? 0
+    }
+    
+    func isSectionEmpty(section: Int) -> Bool {
+        if categoriesCoreData[section].trackers?.count == 0 {
+            return true
+        } else {
+            return false
+        }
+    }
     
     func getCategoryCoreData(with head: String) throws -> TrackerCategoryCoreData {
+        print("categoriesCoreData \(categoriesCoreData)")
         let request = fetchResultsController.fetchRequest
         request.predicate = NSPredicate(format: "%K == %@",
                                         #keyPath(TrackerCategoryCoreData.head),
@@ -75,6 +104,11 @@ final class TrackerCategoryStore: NSObject {
         
         return head
     }
+    
+    func getCategoryNameBySection(section: Int) -> String {
+        return notEmptyCategories[section].head ?? ""
+    }
+    
     func editCategory(category: String, newCategory: String) throws {
         let old = try? getCategoryCoreData(with: category)
         context.delete(old!)
@@ -83,11 +117,16 @@ final class TrackerCategoryStore: NSObject {
     }
     func addCategory(category: String) throws {
         if category != "" {
-            let categoryCoreData = TrackerCategoryCoreData(context: context)
-            print("here ")
-            categoryCoreData.head = category
-            try? context.save()
-            print(categoryCoreData)
+            let request = fetchResultsController.fetchRequest
+            request.predicate = NSPredicate(format: "%K == %@",
+                                            #keyPath(TrackerCategoryCoreData.head),
+                                            category)
+            let categoryCoreData = try context.fetch(request)
+            if categoryCoreData.isEmpty {
+                let categoryCoreData = TrackerCategoryCoreData(context: context)
+                categoryCoreData.head = category
+                try? context.save()
+            }
         }
     }
     
@@ -99,6 +138,6 @@ final class TrackerCategoryStore: NSObject {
 }
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        delegate?.didUpdateTrackers()
+        delegate?.didUpdateCategories()
     }
 }

@@ -67,7 +67,7 @@ final class CategoriesViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         categoriesViewModel.delegate = self
-        categoriesViewModel.didUpdateTrackers()
+        categoriesViewModel.didUpdateCategories()
         prepareView()
     }
     

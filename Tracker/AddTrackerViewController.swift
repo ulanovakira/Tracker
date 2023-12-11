@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol AddTrackerViewControllerDelegate: AnyObject {
-    func didSaveTracker(tracker: Tracker, category: String)
+    func didSaveTracker(tracker: Tracker, category: String, actionType: String)
 }
 
 class AddTrackerViewController: UIViewController{
@@ -92,10 +92,10 @@ class AddTrackerViewController: UIViewController{
 }
 
 extension AddTrackerViewController: NewTrackerViewControllerDelegate {
-    func didSaveTracker(tracker: Tracker, category: String) {
+    func didSaveTracker(tracker: Tracker, category: String, actionType: String) {
         dismiss(animated: true)
         let tracker = tracker
         let category = category
-        delegate?.didSaveTracker(tracker: tracker, category: category)
+        delegate?.didSaveTracker(tracker: tracker, category: category, actionType: actionType)
     }
 }
