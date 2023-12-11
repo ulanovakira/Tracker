@@ -325,11 +325,11 @@ extension TrackersViewController: UICollectionViewDataSource {
         print("indexPath section \(indexPath)")
         let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
         let doneCount = try? trackerRecordStore.getDaysCountDone(tracker: tracker, date: currentDate.removeTimeStamp!)
-        let isPinned = try? trackerStore.isTrackerPinned(tracker: tracker)
+//        let isPinned = try? trackerStore.isTrackerPinned(tracker: tracker)
         print("done \(String(describing: done))")
         cell.configureCellData(tracker: tracker, days: doneCount!)
         cell.configRecord(isDone: done!)
-        cell.pinTracker(isPinned: isPinned ?? false)
+//        cell.pinTracker(isPinned: isPinned ?? false)
         cell.delegate = self
         cell.contentView.layer.cornerRadius = 16
         return cell

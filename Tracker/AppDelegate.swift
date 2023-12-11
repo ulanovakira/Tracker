@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
-        clearAllCoreData()
+//        clearAllCoreData()
         guard let configuration = YMMYandexMetricaConfiguration(apiKey: "319cc644-7d71-4223-9f1d-2dfa8f8bb28d") else { 
                 return true
             }
