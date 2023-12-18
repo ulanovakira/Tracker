@@ -138,7 +138,7 @@ extension CategoriesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("categories.count \(categoriesViewModel.categories.count - 1)")
-        return categoriesViewModel.categories.count - 1
+        return categoriesViewModel.categories.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

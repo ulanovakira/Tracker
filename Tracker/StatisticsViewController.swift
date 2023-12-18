@@ -113,7 +113,6 @@ class StatisticsViewController: UIViewController {
     
     private func checkVisibleCategoriesEmpty() {
         let completedTrackersCount = try? trackerRecordStore.getCompletedTrackersCount()
-        print("completedTrackersCount \(String(describing: completedTrackersCount))")
         if completedTrackersCount != 0 {
             placeholderView.isHidden = true
             placeholderTextView.isHidden = true

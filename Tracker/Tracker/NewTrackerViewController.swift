@@ -25,7 +25,7 @@ final class NewTrackerViewController: UIViewController{
     private var emojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
     private var colors = [UIColor(named: "Selection1"), UIColor(named: "Selection2"), UIColor(named: "Selection3"), UIColor(named: "Selection4"), UIColor(named: "Selection5"), UIColor(named: "Selection6"), UIColor(named: "Selection7"), UIColor(named: "Selection8"), UIColor(named: "Selection9"), UIColor(named: "Selection10"), UIColor(named: "Selection11"), UIColor(named: "Selection12"), UIColor(named: "Selection13"), UIColor(named: "Selection14"), UIColor(named: "Selection15"), UIColor(named: "Selection16"), UIColor(named: "Selection17"), UIColor(named: "Selection18")]
     private var schedule: [Weekday] = []
-    private var selectedEmoji: String?
+    private var selectedEmoji: String = ""
     private var selectedColor: UIColor?
     var actionType: String = ""
     override func viewDidLoad() {
@@ -362,9 +362,11 @@ final class NewTrackerViewController: UIViewController{
         if !trackerNameTextField.text!.isEmpty {
             if didSelectCategory == true {
                 if (trackerType == "habbit" && didSelectSchedule == true) || trackerType != "habbit" {
-                    if selectedColor != nil && !selectedEmoji!.isEmpty {
-                        createButton.isEnabled = true
-                        createButton.backgroundColor = UIColor(named: "YPBlack")
+                    if selectedColor != nil {
+                        if !selectedEmoji.isEmpty {
+                            createButton.isEnabled = true
+                            createButton.backgroundColor = UIColor(named: "YPBlack")
+                        }
                     }
                 }
             }
@@ -406,7 +408,7 @@ final class NewTrackerViewController: UIViewController{
         if trackerType != "habbit" {
             schedule = [Weekday.Monday, Weekday.Tuesday, Weekday.Wednesday, Weekday.Thursday, Weekday.Friday, Weekday.Saturday, Weekday.Sunday]
         }
-        let tracker = Tracker(id: id!, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule, recordCount: 0)
+        let tracker = Tracker(id: id!, name: name, color: selectedColor!, emoji: selectedEmoji, schedule: schedule, recordCount: 0, isPinned: false)
         print(tracker)
 
         delegate?.didSaveTracker(tracker: tracker, category: category, actionType: actionType)
@@ -458,7 +460,6 @@ extension NewTrackerViewController: ScheduleViewControllerDelegate {
                 daysShort.append(day.shortName)
             }
             daysString = daysShort.joined(separator: ", ")
-            print("days \(days)")
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Расписание \n\(daysString)")
             attributedString.setColor(color: UIColor(named: "YPGray")!, forText: daysString)
             
@@ -550,7 +551,7 @@ extension NewTrackerViewController: UICollectionViewDelegate {
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell
             cell?.didSelectEmoji()
-            selectedEmoji = cell?.getEmoji()
+            selectedEmoji = (cell?.getEmoji())!
             didDoneAllStaff()
         } else {
             let cell = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell

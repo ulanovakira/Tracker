@@ -10,7 +10,7 @@ import Foundation
 
 class TrackersViewController: UIViewController, UINavigationControllerDelegate, NewTrackerViewControllerDelegate {
     var categories: [TrackerCategory] = []
-    var completedTrackers: Set<TrackerRecord> = []
+    var completedTrackers: [TrackerRecord] = []
     var visibleCategories: [TrackerCategory] = []
     var currentFilter: String = ""
                                                                 
@@ -100,7 +100,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate, 
         trackerViewCell.delegate = self
         showVisibleCategories()
         prepareView()
-        try? trackerRecordStore.loadCompletedTrackers(date: currentDate)
+        completedTrackers = try! trackerRecordStore.loadCompletedTrackers(date: currentDate)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -182,24 +182,8 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     private func showVisibleCategories() {
-//        let filterWeekday = Calendar.current.component(.weekday, from: currentDate)
-//
-//        visibleCategories = categories.compactMap { category in
-//            let trackers = category.trackers.filter { tracker in
-//                tracker.schedule?.contains { weekday in
-//                    weekday.numberValue == filterWeekday
-//                } == true
-//            }
-//
-//            if trackers.isEmpty {
-//                return nil
-//            }
-//
-//            return TrackerCategory(head: category.head,
-//                            trackers: trackers
-//            )
-//        }
         checkVisibleCategoriesEmpty()
+        completedTrackers = try! trackerRecordStore.loadCompletedTrackers(date: currentDate)
         try? trackerStore.filterTrackers(date: currentDate, searchString: "", isDone: nil)
         trackersCollectionView.reloadData()
     }
@@ -241,7 +225,7 @@ class TrackersViewController: UIViewController, UINavigationControllerDelegate, 
         }
         showVisibleCategories()
         trackersCollectionView.reloadData()
-        try? trackerRecordStore.loadCompletedTrackers(date: currentDate)
+        completedTrackers = try! trackerRecordStore.loadCompletedTrackers(date: currentDate)
     }
 }
 
@@ -288,9 +272,10 @@ extension TrackersViewController: TrackerViewCellDelegate {
     func plusButtonTapped(cell: TrackerViewCell, tracker: Tracker) {
         let trackerRecord = TrackerRecord(id: tracker.id, date: currentDate.removeTimeStamp!)
         if datePicker.date.timeIntervalSinceNow.sign == .minus {
+            showVisibleCategories()
+            print("completedTrackers \(completedTrackers)")
             if !completedTrackers.contains(where: { $0.id == tracker.id && $0.date.removeTimeStamp == currentDate.removeTimeStamp!}) {
-                try? trackerRecordStore.addRecord(record: trackerRecord)
-                try? trackerStore.addRecord(tracker: tracker)
+                try? trackerStore.addRecord(tracker: tracker, date: currentDate.removeTimeStamp!)
                 cell.addDays()
                 cell.configRecord(isDone: true)
                 
@@ -321,18 +306,18 @@ extension TrackersViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrackerViewCell,
-              let tracker = trackerStore.getTracker(at: indexPath) else { return UICollectionViewCell() }
-        print("indexPath section \(indexPath)")
-        let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
-        let doneCount = try? trackerRecordStore.getDaysCountDone(tracker: tracker, date: currentDate.removeTimeStamp!)
-//        let isPinned = try? trackerStore.isTrackerPinned(tracker: tracker)
-        print("done \(String(describing: done))")
-        cell.configureCellData(tracker: tracker, days: doneCount!, isPinned: false)
-        cell.configRecord(isDone: done!)
-//        cell.pinTracker(isPinned: isPinned ?? false)
-        cell.delegate = self
-        cell.contentView.layer.cornerRadius = 16
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrackerViewCell  else { return UICollectionViewCell() }
+        if  let tracker = trackerStore.getTracker(at: indexPath)  {
+            print("indexPath section \(indexPath)")
+            let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
+            let doneCount = try? trackerRecordStore.getDaysCountDone(tracker: tracker, date: currentDate.removeTimeStamp!)
+            let isPinned = trackerStore.isTrackerPinned(tracker: tracker)
+            print("done \(String(describing: done))")
+            cell.configureCellData(tracker: tracker, days: doneCount!, isPinned: isPinned )
+            cell.configRecord(isDone: done!)
+            cell.delegate = self
+            cell.contentView.layer.cornerRadius = 16
+        }
         return cell
     }
 
@@ -347,16 +332,14 @@ extension TrackersViewController: UICollectionViewDataSource {
 }
 
 extension TrackersViewController: UICollectionViewDelegate {
-    private func pinTracker(tracker: Tracker, isPinned: Bool) {
+    private func pinTracker(tracker: Tracker, isPinned: Bool, indexPath: IndexPath) {
         guard let trackerCoreData = try? trackerStore.getTrackerCoreData(with: tracker.id) else { return }
         print("category \(String(describing: trackerCoreData.category?.head))")
         if isPinned == false {
             trackerStore.pinTracker(tracker: tracker)
-            trackerViewCell.pinTracker(isPinned: true)
             print("tracker pinned")
         } else {
             trackerStore.unPinTracker(tracker: tracker)
-            trackerViewCell.pinTracker(isPinned: false)
         }
         showVisibleCategories()
         trackersCollectionView.reloadData()
@@ -418,13 +401,16 @@ extension TrackersViewController: UICollectionViewDelegate {
         return UIContextMenuConfiguration(actionProvider: { actions in
             return UIMenu(children: [
                 UIAction(title: title) { [weak self ] _ in
-                    self?.pinTracker(tracker: tracker, isPinned: isPinned!)
+                    guard let self else { return }
+                    self.pinTracker(tracker: tracker, isPinned: isPinned!, indexPath: indexPath)
                 },
                 UIAction(title: NSLocalizedString("edit", comment: "")) { [weak self] _ in
-                    self?.editTracker(tracker: tracker)
+                    guard let self else { return }
+                    self.editTracker(tracker: tracker)
                 },
                 UIAction(title: NSLocalizedString("delete", comment: ""), attributes: .destructive) { [weak self] _ in
-                    self?.deleteTracker(tracker: tracker)
+                    guard let self else { return }
+                    self.deleteTracker(tracker: tracker)
                 }
             ])
         })
@@ -479,12 +465,13 @@ extension Date {
 extension TrackersViewController: TrackerStoreDelegate {
     func didUpdateTrackers() {
         checkVisibleCategoriesEmpty()
+        completedTrackers  = try! trackerRecordStore.loadCompletedTrackers(date: currentDate)
         trackersCollectionView.reloadData()
     }
 }
 
 extension TrackersViewController: TrackerRecordStoreDelegate {
-    func didUpdateRecord(_ records: Set<TrackerRecord>) {
+    func didUpdateRecord(_ records: [TrackerRecord]) {
         completedTrackers = records
         print("completedTrackers2 \(completedTrackers)")
     }
@@ -504,27 +491,12 @@ extension TrackersViewController: FiltersViewControllerDelegate {
             trackersCollectionView.reloadData()
             showVisibleCategories()
         } else {
-            var trackersDone: [Tracker] = []
-            var trackersNotDone: [Tracker] = []
-            for trackerCoreData in trackerStore.trackersCoreData {
-                guard let tracker = try? trackerStore.trackerFromCoreData(coreData: trackerCoreData) else { return }
-                let done = try? trackerRecordStore.getRecordDone(tracker: tracker, date: currentDate.removeTimeStamp!)
-                if done == true {
-                    trackersDone.append(tracker)
-                } else {
-                    trackersNotDone.append(tracker)
-                }
-            }
             if filter == "done" {
-                print("trackersNotDone \(trackersDone)")
                 try? trackerStore.filterTrackers(date: currentDate, searchString: "", isDone: true)
-//                showVisibleCategories()
                 trackersCollectionView.reloadData()
                 checkVisibleCategoriesEmpty()
             } else if filter == "notdone" {
-                print("trackersDone \(trackersNotDone)")
                 try? trackerStore.filterTrackers(date: currentDate, searchString: "", isDone: false)
-//                showVisibleCategories()
                 trackersCollectionView.reloadData()
                 checkVisibleCategoriesEmpty()
             }

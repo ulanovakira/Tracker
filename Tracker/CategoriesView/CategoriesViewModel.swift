@@ -30,9 +30,10 @@ final class CategoriesViewModel {
     }
     
     private func getCategoriesFromCoreData() -> [String] {
-        let categories = try? trackerCategoryStore.categoriesCoreData.map {
+        var categories = try? trackerCategoryStore.categoriesCoreData.map {
             try trackerCategoryStore.getCategoryNameFromCoreData(coreData: $0)
         }
+        categories?.removeAll{ $0 == NSLocalizedString("pinned", comment: "") }
         print("categpries \(String(describing: categories))")
         return categories ?? []
     }

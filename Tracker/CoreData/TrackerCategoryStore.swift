@@ -51,8 +51,6 @@ final class TrackerCategoryStore: NSObject {
     }
     func getNumberOfCategoriesWithTrackers() -> Int {
         var count: Int = 0
-        print("notEmptyCategories \(notEmptyCategories)")
-        print("fetchResultsController.fetchedObjects?.count \(String(describing: fetchResultsController.fetchedObjects?.count))")
         if fetchResultsController.fetchedObjects?.count != 0 {
             for i in 0..<(fetchResultsController.fetchedObjects?.count)! {
                 if fetchResultsController.fetchedObjects![i].trackers?.count != 0 {
@@ -78,14 +76,12 @@ final class TrackerCategoryStore: NSObject {
     }
     
     func getCategoryCoreData(with head: String) throws -> TrackerCategoryCoreData {
-        print("categoriesCoreData \(categoriesCoreData)")
         let request = fetchResultsController.fetchRequest
         request.predicate = NSPredicate(format: "%K == %@",
                                         #keyPath(TrackerCategoryCoreData.head),
                                         head)
         do {
             let category = try context.fetch(request)
-            print("category \(category)")
             return category[0]
         } catch {
            throw StoreError.decodingErrorInvalidTracker

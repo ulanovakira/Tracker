@@ -43,16 +43,17 @@ final class TrackerStore: NSObject {
     private lazy var fetchResultsController: NSFetchedResultsController<TrackerCoreData> = {
         let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \TrackerCoreData.category?.head , ascending: true)
+            NSSortDescriptor(keyPath: \TrackerCoreData.pinned, ascending: false),
+            NSSortDescriptor(keyPath: \TrackerCoreData.category?.head , ascending: false)
         ]
         let controller = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,
-            sectionNameKeyPath: "category",
+            sectionNameKeyPath: #keyPath(TrackerCoreData.category.head),
             cacheName: nil
         )
-        controller.delegate = self
         try? controller.performFetch()
+        controller.delegate = self
         return controller
     }()
     
@@ -64,7 +65,7 @@ final class TrackerStore: NSObject {
         trackerCoreData.emoji = tracker.emoji
         trackerCoreData.schedule = Weekday.weekdaysToString(weekdays: tracker.schedule)
         trackerCoreData.recordCount = String(tracker.recordCount)
-        
+        trackerCoreData.pinned = tracker.isPinned
         return trackerCoreData
     }
     
@@ -80,8 +81,10 @@ final class TrackerStore: NSObject {
             print("Could not get data from coreData")
             throw StoreError.decodingErrorInvalidTracker
         }
-        print("tracker \(Tracker(id: id, name: name, color: uiColorMarshalling.color(from: stringColor), emoji: emoji, schedule: schedule, recordCount: Int(recordCount)!))")
-        return Tracker(id: id, name: name, color: uiColorMarshalling.color(from: stringColor), emoji: emoji, schedule: schedule, recordCount: Int(recordCount)!)
+        
+        let isPinned = coreData.pinned
+        print("tracker \(Tracker(id: id, name: name, color: uiColorMarshalling.color(from: stringColor), emoji: emoji, schedule: schedule, recordCount: Int(recordCount)!, isPinned: isPinned))")
+        return Tracker(id: id, name: name, color: uiColorMarshalling.color(from: stringColor), emoji: emoji, schedule: schedule, recordCount: Int(recordCount)!, isPinned: isPinned)
     }
     
     func addTracker(tracker: Tracker, category: String) throws {
@@ -118,7 +121,8 @@ final class TrackerStore: NSObject {
     
     func getTracker(at indexPath: IndexPath) -> Tracker? {
         print("indexPath \(indexPath)")
-        
+        print("trackerCoreData \(trackersCoreData)")
+        print("fetchResult \(fetchResultsController.fetchedObjects)")
         let trackerCoreData = fetchResultsController.object(at: indexPath)
         print("indexPathend")
         do {
@@ -130,12 +134,13 @@ final class TrackerStore: NSObject {
     }
     
     func getTrackerCoreData(with id: UUID) throws -> TrackerCoreData? {
-        fetchResultsController.fetchRequest.predicate = NSPredicate(
-            format: "%K == %@",
-            #keyPath(TrackerCoreData.trackerId), id.uuidString
-        )
-        try fetchResultsController.performFetch()
-        return fetchResultsController.fetchedObjects?.first
+        let request = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        request.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(TrackerCoreData.trackerId), id.uuidString
+                    )
+        guard let coreData = try context.fetch(request).first else { return nil }
+        return coreData
     }
     
     func filterTrackers(date: Date, searchString: String, isDone: Bool?) throws {
@@ -154,31 +159,27 @@ final class TrackerStore: NSObject {
         ))
         
         if let isDone {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-dd-MM"
-            dateFormatter.timeZone = TimeZone(identifier: "Europe/Moscow")
-            let dateString = dateFormatter.string(from: date)
-            print("dateString \(dateString)")
             if isDone == true {
                 predicates.append(NSPredicate(
-                format: "%K == %@ AND %K != %@",
-                #keyPath(TrackerCoreData.record.date),
+                format: "%K.%K CONTAINS %@ AND %K > %@",
+                #keyPath(TrackerCoreData.record),
+                #keyPath(TrackerRecordCoreData.date),
                 date.removeTimeStamp! as NSDate,
                 #keyPath(TrackerCoreData.recordCount),
                 "0")
                 )
             } else {
                 predicates.append(NSPredicate(
-                format: "%K != %@",
-                #keyPath(TrackerCoreData.record.date),
-                date.removeTimeStamp! as NSDate
+                format: "SUBQUERY(%K.%K, $a, $a CONTAINS %@).@count == 0 OR %K == %@",
+                #keyPath(TrackerCoreData.record),
+                #keyPath(TrackerRecordCoreData.date),
+                date.removeTimeStamp! as NSDate,
+                #keyPath(TrackerCoreData.recordCount),
+                "0"
                 ))
-                print("lallal")
             }
         }
-        print("aaaaaa \(predicates)")
         fetchResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-        print("aaaaaa \(fetchResultsController.fetchedObjects)")
         try fetchResultsController.performFetch()
         delegate?.didUpdateTrackers()
     }
@@ -205,11 +206,8 @@ final class TrackerStore: NSObject {
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
         trackerCoreData?.defaultCategory = trackerCoreData?.category?.head
         let categoryCoreData = try? categoryStore.getCategoryCoreData(with: NSLocalizedString("pinned", comment: ""))
-        let categoryCoreDataOld = try? categoryStore.getCategoryCoreData(with: (trackerCoreData?.category?.head)!)
         trackerCoreData?.pinned = true
-        trackerCoreData?.category? = categoryCoreData!
-//        categoryCoreDataOld?.removeFromTrackers(trackerCoreData!)
-        categoryCoreData?.trackers?.adding(tracker)
+        categoryCoreData?.addToTrackers(trackerCoreData!)
         try? context.save()
         print("pinned \(tracker)")
         delegate?.didUpdateTrackers()
@@ -219,16 +217,16 @@ final class TrackerStore: NSObject {
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
         let categoryCoreDataOld = try? categoryStore.getCategoryCoreData(with: (trackerCoreData?.defaultCategory)!)
         trackerCoreData?.pinned = false
-        trackerCoreData?.category = categoryCoreDataOld
-        categoryCoreDataOld?.trackers?.adding(tracker)
+        categoryCoreDataOld?.addToTrackers(trackerCoreData!)
         try? context.save()
         print(tracker)
         delegate?.didUpdateTrackers()
     }
     
-    func isTrackerPinned(tracker: Tracker) throws -> Bool {
+    func isTrackerPinned(tracker: Tracker) -> Bool {
         let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
-        return trackerCoreData!.pinned
+        let isPinned = trackerCoreData?.pinned ?? false
+        return isPinned
     }
     
     var numberOfTrackers: Int {
@@ -245,10 +243,7 @@ final class TrackerStore: NSObject {
     }
     
     func categoryNameInSection(_ section: Int) -> String? {
-        print("section \(section)")
-        guard let trackerCoreData = fetchResultsController.sections?[section].objects?.first as? TrackerCoreData else { return nil }
-        print("trackerStore.numberOfSectionsName \(trackerCoreData.category?.head)")
-        print("trackerStore.numberOfSectionsName \(trackerCoreData.category?.trackers?.count)")
+        guard let trackerCoreData = fetchResultsController.sections?[section].objects?.last as? TrackerCoreData else { return nil }
         return trackerCoreData.category?.head
     }
     
@@ -259,12 +254,16 @@ final class TrackerStore: NSObject {
         delegate?.didUpdateTrackers()
     }
     
-    func addRecord(tracker: Tracker) throws {
-        let tracker = try? getTrackerCoreData(with: tracker.id)
-        let recordCountInt = Int((tracker?.recordCount)!)! + 1
-        tracker?.recordCount = String(recordCountInt)
+    func addRecord(tracker: Tracker, date: Date) throws {
+        let trackerCoreData = try? getTrackerCoreData(with: tracker.id)
+        let recordCountInt = Int((trackerCoreData?.recordCount)!)! + 1
+        trackerCoreData?.recordCount = String(recordCountInt)
+        let trackerRecording = TrackerRecordCoreData(context: context)
+        trackerRecording.recordId = tracker.id.uuidString
+        trackerRecording.date = date
+        trackerRecording.trackers = trackerCoreData
+        trackerCoreData?.addToRecord(trackerRecording)
         try context.save()
-//        delegate?.didUpdateTrackers()
     }
     
     func deleteRecord(tracker: Tracker) throws {
@@ -272,7 +271,7 @@ final class TrackerStore: NSObject {
         let recordCountInt = Int((tracker?.recordCount)!)! - 1
         tracker?.recordCount = String(recordCountInt)
         try context.save()
-//        delegate?.didUpdateTrackers()
+        delegate?.didUpdateTrackers()
     }
 }
 
