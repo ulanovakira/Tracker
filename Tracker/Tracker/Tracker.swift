@@ -15,14 +15,16 @@ struct Tracker {
     let emoji: String
     let schedule: [Weekday]?
     let recordCount: Int
+    let isPinned: Bool
     
-    init(id: UUID, name: String, color: UIColor, emoji: String, schedule: [Weekday], recordCount: Int) {
+    init(id: UUID, name: String, color: UIColor, emoji: String, schedule: [Weekday], recordCount: Int, isPinned: Bool) {
         self.id = id
         self.name = name
         self.color = color
         self.emoji = emoji
         self.schedule = schedule
         self.recordCount = recordCount
+        self.isPinned = isPinned
     }
 }
 enum Weekday: String, CaseIterable {

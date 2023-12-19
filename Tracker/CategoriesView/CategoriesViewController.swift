@@ -67,7 +67,7 @@ final class CategoriesViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         categoriesViewModel.delegate = self
-        categoriesViewModel.didUpdateTrackers()
+        categoriesViewModel.didUpdateCategories()
         prepareView()
     }
     
@@ -106,7 +106,7 @@ final class CategoriesViewController: UIViewController {
         
     }
     private func checkVisibleCategoriesEmpty() {
-        if categoriesViewModel.trackerCategoryStore.numberOfCategories != 0 {
+        if categoriesViewModel.trackerCategoryStore.numberOfCategories - 1 != 0 {
             placeholderView.isHidden = true
             placeholderTextView.isHidden = true
         } else {
@@ -137,7 +137,7 @@ extension CategoriesViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("categories.count \(categoriesViewModel.categories.count)")
+        print("categories.count \(categoriesViewModel.categories.count - 1)")
         return categoriesViewModel.categories.count
     }
     

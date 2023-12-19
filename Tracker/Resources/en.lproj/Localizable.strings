@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Кира on 03.12.2023.
+  
+*/
+"trackers" = "Trackers";
+"emptyState.title" = "What will we track?";
+"statistics" = "Statistics";
+"filters" = "Filters";
+"search" = "Search";
+"day.one" = "day";
+"day.singular" = "day";
+"day.plural" = "days";
+"pinned" = "Pinned";
+"pin" = "Pin";
+"unpin" = "Unpin";
+"delete" = "Delete";
+"edit" = "Edit";

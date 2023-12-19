@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol NewTrackerViewControllerDelegate: AnyObject {
-    func didSaveTracker(tracker: Tracker, category: String)
+    func didSaveTracker(tracker: Tracker, category: String, actionType: String)
 }
 
 
@@ -17,18 +17,17 @@ final class NewTrackerViewController: UIViewController{
     var trackerType: String = ""
     
     weak var delegate: NewTrackerViewControllerDelegate?
-//    weak var scheduleDelegate: ScheduleViewControllerDelegate?
     private let categoriesViewModel = CategoriesViewModel()
     private var didSelectSchedule = false
     private var didSelectCategory = false
-//    private var category: String = ["Категория 1", "Категория 2", "Категория 3", "Категория 4"].randomElement()!
     private var category: String = ""
+    private var currentID: String = ""
     private var emojies = [ "🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶", "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
     private var colors = [UIColor(named: "Selection1"), UIColor(named: "Selection2"), UIColor(named: "Selection3"), UIColor(named: "Selection4"), UIColor(named: "Selection5"), UIColor(named: "Selection6"), UIColor(named: "Selection7"), UIColor(named: "Selection8"), UIColor(named: "Selection9"), UIColor(named: "Selection10"), UIColor(named: "Selection11"), UIColor(named: "Selection12"), UIColor(named: "Selection13"), UIColor(named: "Selection14"), UIColor(named: "Selection15"), UIColor(named: "Selection16"), UIColor(named: "Selection17"), UIColor(named: "Selection18")]
     private var schedule: [Weekday] = []
-    private var selectedEmoji: String?
+    private var selectedEmoji: String = ""
     private var selectedColor: UIColor?
-    
+    var actionType: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -62,6 +61,17 @@ final class NewTrackerViewController: UIViewController{
         label.text = "Emoji"
         label.textColor = .black
         label.font = UIFont(name: "SFProText-Bold", size: 19)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let recordCountLabel: UILabel =  {
+        let label = UILabel()
+        label.text = "5 дней"
+        label.textColor = .black
+        label.font = UIFont(name: "SFProText-Bold", size: 32)
+        label.isHidden = true
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -211,6 +221,7 @@ final class NewTrackerViewController: UIViewController{
         view.addSubview(scrollView)
         view.addSubview(titleLabel)
         
+        view.addSubview(recordCountLabel)
         scrollView.addSubview(trackerNameTextField)
         scrollView.addSubview(placeholderLabel)
         scrollView.addSubview(categoryLabel)
@@ -261,18 +272,36 @@ final class NewTrackerViewController: UIViewController{
             scheduleLabel.isHidden = false
             getScheduleButton.isEnabled = true
             separatorView.isHidden = false
-            titleLabel.text = "Новая привычка"
+            if actionType != "edit" {
+                titleLabel.text = "Новая привычка"
+            } else {
+                titleLabel.text = "Редактирование привычки"
+            }
             
+        } else {
+            if actionType != "edit" {
+                titleLabel.text = "Новое нерегулярное событие"
+            } else {
+                titleLabel.text = "Редактирование нерегулярного события"
+            }
+        }
+        
+        if actionType == "edit" {
+            recordCountLabel.isHidden = false
         }
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
             titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
+            recordCountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            recordCountLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            recordCountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 38),
+            
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 38),
+            scrollView.topAnchor.constraint(equalTo: recordCountLabel.bottomAnchor, constant: 38),
             
             trackerNameTextField.topAnchor.constraint(equalTo: scrollView.topAnchor),
             trackerNameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -333,12 +362,34 @@ final class NewTrackerViewController: UIViewController{
         if !trackerNameTextField.text!.isEmpty {
             if didSelectCategory == true {
                 if (trackerType == "habbit" && didSelectSchedule == true) || trackerType != "habbit" {
-                    if selectedColor != nil && !selectedEmoji!.isEmpty {
-                        createButton.isEnabled = true
-                        createButton.backgroundColor = UIColor(named: "YPBlack")
+                    if selectedColor != nil {
+                        if !selectedEmoji.isEmpty {
+                            createButton.isEnabled = true
+                            createButton.backgroundColor = UIColor(named: "YPBlack")
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    func editTracker(tracker: Tracker, category: String, recordCount: Int) {
+        placeholderLabel.isHidden = true
+        trackerNameTextField.text = tracker.name
+        emojiLabel.text = tracker.emoji
+        currentID = tracker.id.uuidString
+        configureTextLabel(days: recordCount)
+        didSelectSchedule(days: tracker.schedule!)
+        didSelectCategory(category: category)
+    }
+    private func configureTextLabel(days: Int) {
+        switch days % 10 {
+        case 1:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.one", comment: ""))"
+        case 2...4:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.singular", comment: ""))"
+        default:
+            recordCountLabel.text = "\(days) \(NSLocalizedString("day.plural", comment: ""))"
         }
     }
     
@@ -347,15 +398,20 @@ final class NewTrackerViewController: UIViewController{
     }
     
     @objc func createButtonTapped() {
-        let id = UUID()
+        let id: UUID?
+        if actionType == "edit" {
+            id = UUID(uuidString: currentID)
+        } else {
+            id = UUID()
+        }
         guard let name = trackerNameTextField.text else { return }
         if trackerType != "habbit" {
             schedule = [Weekday.Monday, Weekday.Tuesday, Weekday.Wednesday, Weekday.Thursday, Weekday.Friday, Weekday.Saturday, Weekday.Sunday]
         }
-        let tracker = Tracker(id: id, name: name, color: selectedColor!, emoji: selectedEmoji!, schedule: schedule, recordCount: 0)
+        let tracker = Tracker(id: id!, name: name, color: selectedColor!, emoji: selectedEmoji, schedule: schedule, recordCount: 0, isPinned: false)
         print(tracker)
 
-        delegate?.didSaveTracker(tracker: tracker, category: category)
+        delegate?.didSaveTracker(tracker: tracker, category: category, actionType: actionType)
     }
     
     @objc func getCategoryButtonTapped() {
@@ -404,7 +460,6 @@ extension NewTrackerViewController: ScheduleViewControllerDelegate {
                 daysShort.append(day.shortName)
             }
             daysString = daysShort.joined(separator: ", ")
-            print("days \(days)")
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Расписание \n\(daysString)")
             attributedString.setColor(color: UIColor(named: "YPGray")!, forText: daysString)
             
@@ -496,7 +551,7 @@ extension NewTrackerViewController: UICollectionViewDelegate {
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell
             cell?.didSelectEmoji()
-            selectedEmoji = cell?.getEmoji()
+            selectedEmoji = (cell?.getEmoji())!
             didDoneAllStaff()
         } else {
             let cell = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell
